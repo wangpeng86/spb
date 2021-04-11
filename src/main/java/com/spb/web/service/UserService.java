@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.data.domain.Page;
 
 import com.spb.web.domain.User;
+import com.spb.web.dto.ResultDto;
 
 public interface UserService{
 	
@@ -12,10 +13,10 @@ public interface UserService{
 	
 	public User findById(String id);
 	
-	public void add(User user);
+	public ResultDto add(User user);
 	
-	public void update(User user);
+	public ResultDto update(User user);
 	
-	public void delete(String id);
+	public ResultDto delete(String id);
 	
 }

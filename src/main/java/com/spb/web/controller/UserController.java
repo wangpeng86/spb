@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spb.web.domain.User;
+import com.spb.web.dto.ResultDto;
 import com.spb.web.enums.UserStatusEnum;
 import com.spb.web.service.UserService;
 
@@ -44,18 +45,18 @@ public class UserController{
 	}
 	
 	@PostMapping
-	public void add(@RequestBody User user) {
-		userService.add(user);
+	public ResultDto add(@RequestBody User user) {
+		return userService.add(user);
 	}
 	
 	@PutMapping
-	public void update(@RequestBody User user) {
-		userService.update(user);
+	public ResultDto update(@RequestBody User user) {
+		return userService.update(user);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteById(@PathVariable String id) {
-		userService.delete(id);
+	public ResultDto deleteById(@PathVariable String id) {
+		return userService.delete(id);
 	}
 	
 }

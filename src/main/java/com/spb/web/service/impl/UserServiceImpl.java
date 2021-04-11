@@ -4,6 +4,7 @@ import java.security.cert.Certificate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -20,9 +21,12 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.google.common.collect.Maps;
 import com.spb.web.domain.User;
+import com.spb.web.dto.ResultDto;
 import com.spb.web.repository.UserRepository;
 import com.spb.web.service.UserService;
+import com.spb.web.utils.ResultUtil;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -60,21 +64,24 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public void add(User user) {
+	public ResultDto add(User user) {
 		user.setPassword("1");
 		user.setCreateTime(new Date());
 		user.setStatus(1);
 		userRepository.save(user);
+		return ResultUtil.returnSuccess();
 	}
 	
 	@Override
-	public void update(User user) {
+	public ResultDto update(User user) {
 		userRepository.save(user);
+		return ResultUtil.returnSuccess();
 	}
 	
 	@Override
-	public void delete(String id) {
+	public ResultDto delete(String id) {
 		userRepository.deleteById(id);
+		return ResultUtil.returnSuccess();
 	}
 	
 	
