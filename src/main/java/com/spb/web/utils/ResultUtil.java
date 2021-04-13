@@ -8,4 +8,8 @@ public class ResultUtil{
 		return new ResultDto("0000");
 	}
 	
+	public static ResultDto returnSuccess(Object data) {
+		return new ResultDto("0000", data);
+	}
+	
 }

@@ -25,6 +25,8 @@ public class Role{
 	private String code;
 	@Column(name = "NAME", length = 32)
 	private String name;
+	@Column(name = "STATUS")
+	private Integer status;
 	@Column(name = "CREATE_TIME")
 	private Date createTime;
 	@Column(name = "UPDATE_TIME")
@@ -62,6 +64,14 @@ public class Role{
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public Integer getStatus() {
+		return status;
+	}
+	
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 	
 	public Date getCreateTime() {

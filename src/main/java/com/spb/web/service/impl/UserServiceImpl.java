@@ -25,6 +25,7 @@ import com.google.common.collect.Maps;
 import com.spb.web.domain.User;
 import com.spb.web.dto.ResultDto;
 import com.spb.web.repository.UserRepository;
+import com.spb.web.service.BaseService;
 import com.spb.web.service.UserService;
 import com.spb.web.utils.ResultUtil;
 
@@ -35,32 +36,14 @@ public class UserServiceImpl implements UserService{
 	private UserRepository userRepository;
 	
 	@Override
-	public Page<User> findListByPage(Integer pageSize, Integer pageNumber, String sortName, String sortType, String loginName, String phone, Integer status) {
-		Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Direction.ASC, sortName));
-		return userRepository.findAll(new Specification<User>() {
-			
-			@Override
-			public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				// TODO Auto-generated method stub
-				List<Predicate> predicateList = new ArrayList<>();
-				if(!StringUtils.isEmpty(loginName)) {
-					predicateList.add(criteriaBuilder.equal(root.get("loginName"), loginName));
-				}
-				if(!StringUtils.isEmpty(phone)) {
-					predicateList.add(criteriaBuilder.equal(root.get("phone"), phone));
-				}
-				if(!StringUtils.isEmpty(status)) {
-					predicateList.add(criteriaBuilder.equal(root.get("status"), status));
-				}
-				Predicate[] predicates = new Predicate[predicateList.size()];
-				return criteriaBuilder.and(predicateList.toArray(predicates));
-			}
-		}, pageable);
+	public List<User> findList() {
+		return userRepository.findAll();
 	}
 	
 	@Override
-	public User findById(String id) {
-		return userRepository.getOne(id);
+	public ResultDto findById(String id) {
+		User user = userRepository.getOne(id);
+		return ResultUtil.returnSuccess(user);
 	}
 	
 	@Override
@@ -84,5 +67,29 @@ public class UserServiceImpl implements UserService{
 		return ResultUtil.returnSuccess();
 	}
 	
+	@Override
+	public ResultDto findListByPage(Integer pageSize, Integer pageNumber, String sortName, String sortType, String loginName, String phone, Integer status) {
+		Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, Sort.by(Direction.ASC, sortName));
+		Page<User> pageData = userRepository.findAll(new Specification<User>() {
+			
+			@Override
+			public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+				// TODO Auto-generated method stub
+				List<Predicate> predicateList = new ArrayList<>();
+				if(!StringUtils.isEmpty(loginName)) {
+					predicateList.add(criteriaBuilder.equal(root.get("loginName"), loginName));
+				}
+				if(!StringUtils.isEmpty(phone)) {
+					predicateList.add(criteriaBuilder.equal(root.get("phone"), phone));
+				}
+				if(!StringUtils.isEmpty(status)) {
+					predicateList.add(criteriaBuilder.equal(root.get("status"), status));
+				}
+				Predicate[] predicates = new Predicate[predicateList.size()];
+				return criteriaBuilder.and(predicateList.toArray(predicates));
+			}
+		}, pageable);
+		return ResultUtil.returnSuccess(pageData);
+	}
 	
 }
