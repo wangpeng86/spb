@@ -21,12 +21,17 @@ public class RoleController extends BaseController{
 	
 	@Autowired
 	RoleService roleService;
-	
+
+	@GetMapping("/list")
+	public ResultDto findList(){
+		return roleService.findList();
+	}
+
 	@GetMapping
 	public ResultDto findListByPage(@RequestParam(value = "pageSize", required = false, defaultValue = "5") Integer pageSize,
-			@RequestParam(value = "pageNumber", required = false, defaultValue = "1") Integer pageNumber,
-			@RequestParam(value = "sortName", required = false, defaultValue = "createTime") String sortName,
-			@RequestParam(value = "asc") String sortType) {
+									@RequestParam(value = "pageNumber", required = false, defaultValue = "1") Integer pageNumber,
+									@RequestParam(value = "sortName",  required = false, defaultValue = "createTime") String sortName,
+									@RequestParam(value = "sortType", required = false, defaultValue = "1") String sortType) {
 		return roleService.findListByPage(pageSize, pageNumber, sortName, sortType);
 	}
 	

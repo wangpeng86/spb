@@ -45,7 +45,7 @@ public class UserControllerTest{
 	 */
 	@Test
 	public void addUser() throws Exception{
-		for(int i = 3; i < 30; i++) {
+		for(int i = 1; i < 10; i++) {
 			String requestBody = "{\"loginName\":\"wp" + i + "\",\"nickName\":\"wangpeng" + i + "\",\"realName\":\"wangpeng" + i + "\",\"gender\":\"1\",\"phone\":\"133333333" + i + "\",\"email\":\"wp@1" + i + ".com\"}";
 			mvc.perform(MockMvcRequestBuilders.post("/user")
 					.contentType(MediaType.APPLICATION_JSON)
