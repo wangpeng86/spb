@@ -50,8 +50,12 @@ public class RoleServiceImpl implements RoleService{
 	}
 	
 	@Override
-	public ResultDto update(Role t) {
-		roleRepository.save(t);
+	public ResultDto update(Role role) {
+		Role oldRole = roleRepository.getOne(role.getId());
+		oldRole.setMenuIds(role.getMenuIds());
+		oldRole.setCode(role.getCode());
+		oldRole.setName(role.getName());
+		roleRepository.save(oldRole);
 		return ResultUtil.returnSuccess();
 	}
 	

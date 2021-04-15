@@ -57,7 +57,12 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public ResultDto update(User user) {
-		userRepository.save(user);
+		User oldUser = userRepository.getOne(user.getId());
+		oldUser.setRoleIds(user.getRoleIds());
+		oldUser.setLoginName(user.getLoginName());
+		oldUser.setNickName(user.getNickName());
+		oldUser.setGender(user.getGender());
+		userRepository.save(oldUser);
 		return ResultUtil.returnSuccess();
 	}
 	
