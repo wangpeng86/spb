@@ -6,7 +6,7 @@ import com.spb.web.dto.ResultDto;
 
 public interface BaseService<T>{
 	
-	public List<T> findList();
+	public ResultDto findList();
 	
 	public ResultDto findById(String id);
 	

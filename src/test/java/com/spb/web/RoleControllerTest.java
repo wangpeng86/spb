@@ -32,7 +32,7 @@ public class RoleControllerTest{
 	
 	@Test
 	public void addRole() throws Exception{
-		for(Integer i = 0; i < 15; i++) {
+		for(Integer i = 1; i < 10; i++) {
 			String requestBody = "{\"code\":\"" + i + "\",\"name\":\"角色" + i + "\"}";
 			mvc.perform(MockMvcRequestBuilders.post("/role")
 					.contentType(MediaType.APPLICATION_JSON)
