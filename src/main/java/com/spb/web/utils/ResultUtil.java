@@ -12,4 +12,8 @@ public class ResultUtil{
 		return new ResultDto("0000", data);
 	}
 	
+	public static ResultDto returnFail(String msg) {
+		return new ResultDto("9999", msg);
+	}
+	
 }

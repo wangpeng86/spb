@@ -19,6 +19,7 @@ import com.spb.web.domain.User;
 import com.spb.web.dto.ResultDto;
 import com.spb.web.enums.UserStatusEnum;
 import com.spb.web.service.UserService;
+import com.spb.web.utils.ResultUtil;
 
 @RestController
 @RequestMapping("/user")
@@ -35,27 +36,47 @@ public class UserController extends BaseController{
 			@RequestParam(value = "loginName", required = false) String loginName,
 			@RequestParam(value = "phone", required = false) String phone,
 			@RequestParam(value = "status", required = false) Integer status){
-		return userService.findListByPage(pageSize, pageNumber, sortName, sortType, loginName, phone, status);
+		try {
+			return userService.findListByPage(pageSize, pageNumber, sortName, sortType, loginName, phone, status);
+		}catch(Exception e) {
+			return ResultUtil.returnFail(e.getMessage());
+		}
 	}
 	
 	@GetMapping("/{id}")
 	public ResultDto findById(@PathVariable String id) {
-		return userService.findById(id);
+		try {
+			return userService.findById(id);	
+		}catch (Exception e) {
+			return ResultUtil.returnFail(e.getMessage());
+		}
 	}
 	
 	@PostMapping
 	public ResultDto add(@RequestBody User user) {
-		return userService.add(user);
+		try {
+			return userService.add(user);
+		}catch (Exception e) {
+			return ResultUtil.returnFail(e.getMessage());
+		}
 	}
 	
 	@PutMapping
 	public ResultDto update(@RequestBody User user) {
-		return userService.update(user);
+		try {
+			return userService.update(user);
+		}catch (Exception e) {
+			return ResultUtil.returnFail(e.getMessage());
+		}
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResultDto deleteById(@PathVariable String id) {
-		return userService.delete(id);
+		try {
+			return userService.delete(id);
+		}catch (Exception e) {
+			return ResultUtil.returnFail(e.getMessage());
+		}
 	}
 	
 }

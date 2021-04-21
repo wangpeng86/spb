@@ -6,6 +6,7 @@ import com.spb.web.repository.MenuRepository;
 import com.spb.web.service.MenuService;
 import com.spb.web.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -65,12 +66,12 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public ResultDto findListByPage(Integer pageSize, Integer pageNumber, String sortName, String sortType) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, sortName));
-        menuRepository.findAll(new Specification<Menu>() {
+        Page<Menu> pageData = menuRepository.findAll(new Specification<Menu>() {
             @Override
             public Predicate toPredicate(Root<Menu> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 return null;
             }
         }, pageable);
-        return ResultUtil.returnSuccess();
+        return ResultUtil.returnSuccess(pageData);
     }
 }

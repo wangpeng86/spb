@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spb.web.domain.Role;
 import com.spb.web.dto.ResultDto;
 import com.spb.web.service.RoleService;
+import com.spb.web.utils.ResultUtil;
 
 @RestController
 @RequestMapping("/role")
@@ -32,27 +33,47 @@ public class RoleController extends BaseController{
 			@RequestParam(value = "pageNumber", required = false, defaultValue = "1") Integer pageNumber,
 			@RequestParam(value = "sortName",  required = false, defaultValue = "createTime") String sortName,
 			@RequestParam(value = "sortType", required = false, defaultValue = "1") String sortType) {
-		return roleService.findListByPage(pageSize, pageNumber, sortName, sortType);
+		try {
+			return roleService.findListByPage(pageSize, pageNumber, sortName, sortType);
+		}catch(Exception e) {
+			return ResultUtil.returnFail(e.getMessage());
+		}
 	}
 	
 	@GetMapping("/{id}")
 	public ResultDto findById(@PathVariable String id) {
-		return roleService.findById(id);
+		try {
+			return roleService.findById(id);
+		}catch(Exception e) {
+			return ResultUtil.returnFail(e.getMessage());
+		}
 	}
 	
 	@PostMapping
 	public ResultDto add(@RequestBody Role role) {
-		return roleService.add(role);
+		try {
+			return roleService.add(role);
+		}catch(Exception e) {
+			return ResultUtil.returnFail(e.getMessage());
+		}
 	}
 	
 	@PutMapping
 	public ResultDto update(@RequestBody Role role) {
-		return roleService.update(role);
+		try {
+			return roleService.update(role);
+		}catch(Exception e) {
+			return ResultUtil.returnFail(e.getMessage());
+		}
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResultDto deleteById(@PathVariable String id) {
-		return roleService.delete(id);
+		try {
+			return roleService.delete(id);
+		}catch(Exception e) {
+			return ResultUtil.returnFail(e.getMessage());
+		}
 	}
 	
 }
